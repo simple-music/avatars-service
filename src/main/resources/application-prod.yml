@@ -1,0 +1,9 @@
+server:
+  port: 443
+
+spring:
+  cloud:
+    consul:
+      enabled: true
+      discovery:
+        instanceId: ${spring.application.name}:${random.value}
