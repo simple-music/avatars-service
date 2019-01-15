@@ -1,11 +1,13 @@
 package ru.bmstu.iu7.simplemusic.avatarsservice.controller
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import ru.bmstu.iu7.simplemusic.avatarsservice.service.AvatarService
 
 @RestController
 @RequestMapping("/avatars/{user}")
-class AvatarController {
+class AvatarController(@Autowired private val avatarService: AvatarService) {
     @PostMapping
     fun addAvatar(@PathVariable("user") user: String,
                   @RequestBody data: ByteArray) : ResponseEntity<Any> {
