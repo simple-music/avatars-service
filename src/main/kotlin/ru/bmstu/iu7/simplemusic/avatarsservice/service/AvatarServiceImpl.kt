@@ -8,7 +8,6 @@ import java.io.File
 class AvatarServiceImpl(
         @Value("\${uploads.directory}")
         private val rootPath: String) : AvatarService {
-
     private val uploadsDir: File = File(rootPath)
 
     init {
@@ -20,7 +19,6 @@ class AvatarServiceImpl(
     }
 
     override fun getAvatar(user: String): ByteArray {
-        println(rootPath)
         TODO("not implemented")
     }
 

@@ -10,17 +10,17 @@ import ru.bmstu.iu7.simplemusic.avatarsservice.service.AvatarService
 class AvatarController(@Autowired private val avatarService: AvatarService) {
     @PostMapping
     fun addAvatar(@PathVariable("user") user: String,
-                  @RequestBody data: ByteArray) : ResponseEntity<Any> {
+                  @RequestBody data: ByteArray): ResponseEntity<Any> {
         TODO("not implemented")
     }
 
     @GetMapping
-    fun getAvatar(@PathVariable("user") user: String) : ResponseEntity<ByteArray> {
+    fun getAvatar(@PathVariable("user") user: String): ResponseEntity<ByteArray> {
         TODO("not implemented")
     }
 
     @DeleteMapping
-    fun deleteAvatar(@PathVariable("user") user: String) : ResponseEntity<Any> {
+    fun deleteAvatar(@PathVariable("user") user: String): ResponseEntity<Any> {
         TODO("not implemented")
     }
 }
