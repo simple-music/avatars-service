@@ -14,4 +14,4 @@ jobs:
       services:
         - docker
       script:
-        - docker build -t simple-music/musicians-service .
+        - docker build -t simple-music/avatars-service .
