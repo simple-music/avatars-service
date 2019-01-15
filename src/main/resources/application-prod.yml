@@ -1,5 +1,10 @@
 server:
   port: 443
+  ssl:
+    enabled: true
+    key-store: classpath:service.jks
+    key-store-password: secret
+    key-alias: service
 
 spring:
   cloud:
