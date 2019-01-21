@@ -26,6 +26,10 @@ class AuthManagerImpl(
 
     override fun checkToken(token: String): Boolean {
         synchronized(lock = this) {
+            if (Date() > this.tokenExpTime) {
+                this.token = this.generateToken()
+                this.tokenExpTime = this.countTokenExpTime()
+            }
             return token == this.token
         }
     }
@@ -44,6 +48,7 @@ class AuthManagerImpl(
     }
 
     private fun generateToken(): String {
+        println("token update")
         return (1..TOKEN_LENGTH)
                 .map {
                     Random.nextInt(from = 0, until = charPool.size)
