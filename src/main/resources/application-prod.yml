@@ -5,10 +5,12 @@ spring:
   cloud:
     consul:
       enabled: true
+      host: ${SIMPLE_MUSIC_REGISTRY_HOST}
+      port: ${SIMPLE_MUSIC_REGISTRY_HOST}
       discovery:
         instanceId: ${spring.application.name}:${random.value}
 
 security:
-  service-id: users
+  service-id: avatars
   service-password: secret
-  token-lifetime: 15
+  token-lifetime: 30
