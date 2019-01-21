@@ -1,10 +1,10 @@
 package ru.bmstu.iu7.simplemusic.avatarsservice.auth
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
 import kotlin.random.Random
-
 
 interface AuthManager {
     fun checkToken(token: String): Boolean
@@ -48,13 +48,14 @@ class AuthManagerImpl(
     }
 
     private fun generateToken(): String {
-        println("token update")
-        return (1..TOKEN_LENGTH)
+        val token = (1..TOKEN_LENGTH)
                 .map {
                     Random.nextInt(from = 0, until = charPool.size)
                 }
                 .map(charPool::get)
                 .joinToString(separator = "")
+        log.info("Authorization token: $token")
+        return token
     }
 
     private fun countTokenExpTime(): Date {
@@ -63,8 +64,11 @@ class AuthManagerImpl(
     }
 
     private companion object {
+        private val log = LoggerFactory.getLogger(AuthManagerImpl::class.java)
+
         private const val TOKEN_LENGTH = 100
         private const val TIME_MINUTE = 60000
+
         private val charPool: List<Char> =
                 ('a'..'z') + ('A'..'Z') + ('0'..'9')
     }
