@@ -14,13 +14,13 @@ interface AuthManager {
 @Component
 class AuthManagerImpl(
         @Value("\${security.service-id}")
-        private val serviceId:  String,
+        private val serviceId: String,
 
         @Value("\${security.service-password}")
-        private val servicePassword:  String,
+        private val servicePassword: String,
 
         @Value("\${security.token-lifetime}")
-        private val tokenLifetime:  Int) : AuthManager {
+        private val tokenLifetime: Int) : AuthManager {
     private var token = this.generateToken()
     private var tokenExpTime = this.countTokenExpTime()
 
@@ -60,7 +60,7 @@ class AuthManagerImpl(
     private companion object {
         private const val TOKEN_LENGTH = 100
         private const val TIME_MINUTE = 60000
-        private val charPool : List<Char> =
+        private val charPool: List<Char> =
                 ('a'..'z') + ('A'..'Z') + ('0'..'9')
     }
 }

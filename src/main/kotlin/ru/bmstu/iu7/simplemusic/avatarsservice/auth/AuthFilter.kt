@@ -1,20 +1,22 @@
 package ru.bmstu.iu7.simplemusic.avatarsservice.auth
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
-
-import javax.servlet.*
+import javax.servlet.Filter
+import javax.servlet.FilterChain
+import javax.servlet.ServletRequest
+import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import org.springframework.boot.web.servlet.FilterRegistrationBean
-import org.springframework.context.annotation.Bean
 
 
 @Component
-@Profile(value = ["dev","prod"])
+@Profile(value = ["dev", "prod"])
 class AuthFilter(private val authManager: AuthManager) : Filter {
     override fun doFilter(request: ServletRequest,
                           response: ServletResponse,
@@ -31,7 +33,7 @@ class AuthFilter(private val authManager: AuthManager) : Filter {
 }
 
 @Configuration
-@Profile(value = ["dev","prod"])
+@Profile(value = ["dev", "prod"])
 class AuthFilterConfig(@Autowired private val authManager: AuthManager) {
     @Bean
     fun authFilterBean(): FilterRegistrationBean<AuthFilter> {
