@@ -6,7 +6,7 @@ spring:
     consul:
       enabled: true
       host: ${SIMPLE_MUSIC_REGISTRY_HOST}
-      port: ${SIMPLE_MUSIC_REGISTRY_HOST}
+      port: ${SIMPLE_MUSIC_REGISTRY_PORT}
       discovery:
         instanceId: ${spring.application.name}:${random.value}
 
