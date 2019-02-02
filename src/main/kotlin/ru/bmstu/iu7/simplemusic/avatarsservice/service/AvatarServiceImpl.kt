@@ -2,6 +2,7 @@ package ru.bmstu.iu7.simplemusic.avatarsservice.service
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import org.springframework.util.ResourceUtils
 import ru.bmstu.iu7.simplemusic.avatarsservice.exception.NotFoundException
 import java.io.File
 
@@ -20,12 +21,11 @@ class AvatarServiceImpl(
     }
 
     override fun getAvatar(user: String): ByteArray {
-        val file = this.fileForUser(user)
-        return if (file.exists()) {
-            file.readBytes()
-        } else {
-            throw NotFoundException("avatar not found")
-        }
+        return this.getFile(this.fileForUser(user))
+    }
+
+    override fun getDefaultAvatar(): ByteArray {
+        return this.getFile(this.fileForDefault())
     }
 
     override fun deleteAvatar(user: String) {
@@ -39,5 +39,17 @@ class AvatarServiceImpl(
 
     private fun fileForUser(user: String): File {
         return File(this.uploadsDir, "$user.jpeg")
+    }
+
+    private fun fileForDefault(): File {
+        return ResourceUtils.getFile("classpath:default.jpg")
+    }
+
+    private fun getFile(file: File): ByteArray {
+        return if (file.exists()) {
+            file.readBytes()
+        } else {
+            throw NotFoundException("avatar not found")
+        }
     }
 }

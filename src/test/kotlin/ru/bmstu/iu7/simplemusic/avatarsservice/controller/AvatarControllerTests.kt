@@ -46,13 +46,33 @@ class AvatarControllerTests {
                             .status().isOk)
         }
 
+        this.mockMvc!!
+                .perform(MockMvcRequestBuilders
+                        .post("/avatars/default")
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .content(avatarBytes))
+                .andExpect(MockMvcResultMatchers
+                        .status().isForbidden)
+
         Mockito
                 .`when`(this.mockService!!.getAvatar(Mockito.anyString()))
                 .thenReturn(avatarBytes)
 
-        this.mockMvc!!
+        this.mockMvc
                 .perform(MockMvcRequestBuilders
                         .get("/avatars/$user"))
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk)
+                .andExpect(MockMvcResultMatchers
+                        .content().bytes(avatarBytes))
+
+        Mockito
+                .`when`(this.mockService.getDefaultAvatar())
+                .thenReturn(avatarBytes)
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/avatars/default"))
                 .andExpect(MockMvcResultMatchers
                         .status().isOk)
                 .andExpect(MockMvcResultMatchers
@@ -94,6 +114,12 @@ class AvatarControllerTests {
                         .delete("/avatars/$user"))
                 .andExpect(MockMvcResultMatchers
                         .status().isNotFound)
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .delete("/avatars/default"))
+                .andExpect(MockMvcResultMatchers
+                        .status().isForbidden)
     }
 
     private fun generateUser(): String {
