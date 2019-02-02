@@ -1,6 +1,9 @@
 server:
   port: 80
 
+content:
+  default-avatar-path: /var/www/img/default.jpg
+
 spring:
   cloud:
     consul:

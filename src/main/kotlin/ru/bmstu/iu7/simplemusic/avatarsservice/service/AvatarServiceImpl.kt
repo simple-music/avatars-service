@@ -1,15 +1,17 @@
 package ru.bmstu.iu7.simplemusic.avatarsservice.service
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Service
-import org.springframework.util.ResourceUtils
 import ru.bmstu.iu7.simplemusic.avatarsservice.exception.NotFoundException
 import java.io.File
 
 @Service
 class AvatarServiceImpl(
         @Value("\${uploads.directory}")
-        private val rootPath: String) : AvatarService {
+        private val rootPath: String,
+        @Value("\${content.default-avatar-path}")
+        private val defaultPath: String) : AvatarService {
     private val uploadsDir: File = File(rootPath)
 
     init {
@@ -42,7 +44,7 @@ class AvatarServiceImpl(
     }
 
     private fun fileForDefault(): File {
-        return ResourceUtils.getFile("classpath:default.jpg")
+        return File(this.defaultPath)
     }
 
     private fun getFile(file: File): ByteArray {
